@@ -32,6 +32,7 @@ void BOARD_InitBootPins(void)
 {
     BOARD_InitPins();
     BOARD_Leds();
+    BOARD_ADC();
 }
 
 /* clang-format off */
@@ -129,6 +130,32 @@ void BOARD_Leds(void)
 
     /* PORTD1 (pin 74) is configured as PTD1 */
     PORT_SetPinMux(BOARD_LEDS_LED_BLUE_PORT, BOARD_LEDS_LED_BLUE_PIN, kPORT_MuxAsGpio);
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_ADC:
+- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
+- pin_list:
+  - {pin_num: '56', peripheral: ADC0, signal: 'SE, 15', pin_signal: ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_ADC
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_ADC(void)
+{
+    /* Port C Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortC);
+
+    /* PORTC1 (pin 56) is configured as ADC0_SE15 */
+    PORT_SetPinMux(PORTC, 1U, kPORT_PinDisabledOrAnalog);
 }
 /***********************************************************************************************************************
  * EOF

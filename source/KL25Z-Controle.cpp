@@ -50,6 +50,8 @@
 /*
  * @brief   Application entry point.
  */
+
+//Escrever aqui lei de controle!
 void CtrlLaw(){
 	LED_BLUE_TOGGLE();
 }
@@ -68,12 +70,19 @@ int main(void) {
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
 
-    Control::ADC oi(32);
 
+    //Teste da API pro ADC
+    Control::ADC oi(15);
+
+
+    	uint32_t adcval;
 
     while(1) {
     	LED_RED_TOGGLE();
     	Control::delay(1000000);
+    	adcval = oi.getConversion();
+    	CONTROLE_PRINT("%ADC : %d\r\n",adcval);
+
     }
 
 
