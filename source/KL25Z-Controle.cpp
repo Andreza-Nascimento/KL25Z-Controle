@@ -43,14 +43,19 @@
 
 #include "arm_math.h" //Operações DSP
 #include "inc/Control.h" //API principal para aplicações Controle
+#include "inc/Interrupts.h"
 
 /* TODO: insert other definitions and declarations here. */
 
 /*
  * @brief   Application entry point.
  */
-int main(void) {
+void CtrlLaw(){
+	LED_BLUE_TOGGLE();
+}
 
+
+int main(void) {
 
   	/* Init board hardware. */
     BOARD_InitBootPins();
@@ -59,18 +64,18 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    Control::setSamplingFrequency(10);
+    Control::setControlLawHandle(CtrlLaw);
+  //  Control::start();
 
 
-    PRINTF("Hello World\n");
 
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
     while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
+    	LED_RED_TOGGLE();
+    	Control::delay(1000000);
     }
+
+
+
     return 0 ;
 }

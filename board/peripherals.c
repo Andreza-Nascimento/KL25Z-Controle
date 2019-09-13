@@ -41,10 +41,25 @@ product: Peripherals v1.0
 /* This is a template for board specific configuration created by MCUXpresso IDE Project Wizard.*/
 
 #include "peripherals.h"
+#include "fsl_pit.h"
 
 /**
  * @brief Set up and initialize all required blocks and functions related to the peripherals hardware.
  */
+//Configuracoes de Perifericos
+static pit_config_t PIT_CONFIG;
+
+
+
+
 void BOARD_InitBootPeripherals(void) {
-	/* The user initialization should be placed here */
+
+	//PIT TIMER
+	PIT_CONFIG.enableRunInDebug = true;
+	PIT_Init(PIT, &PIT_CONFIG);
+	PIT_EnableInterrupts(PIT, kPIT_Chnl_0, kPIT_TimerInterruptEnable);
+	NVIC_EnableIRQ(PIT_IRQn);
+
+
+
 }
