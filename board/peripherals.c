@@ -42,12 +42,14 @@ product: Peripherals v1.0
 
 #include "peripherals.h"
 #include "fsl_pit.h"
+#include "fsl_adc16.h"
 
 /**
  * @brief Set up and initialize all required blocks and functions related to the peripherals hardware.
  */
 //Configuracoes de Perifericos
 static pit_config_t PIT_CONFIG;
+static adc16_config_t ADC_CONFIG;
 
 
 
@@ -59,6 +61,16 @@ void BOARD_InitBootPeripherals(void) {
 	PIT_Init(PIT, &PIT_CONFIG);
 	PIT_EnableInterrupts(PIT, kPIT_Chnl_0, kPIT_TimerInterruptEnable);
 	NVIC_EnableIRQ(PIT_IRQn);
+
+	//ADC (TORNAR CONFIGURAVEL ? )
+	ADC_CONFIG.resolution = kADC16_Resolution16Bit; //16 bits
+	ADC_CONFIG.clockDivider = kADC16_ClockDivider1;
+	ADC_CONFIG.clockSource = kADC16_ClockSourceAlt0; //BUS CLOCK (24MHZ Default)
+	ADC_CONFIG.enableContinuousConversion = true;
+	ADC_CONFIG.enableHighSpeed = false;
+	ADC_CONFIG.longSampleMode = kADC16_LongSampleDisabled;
+	ADC16_Init(ADC0, &ADC_CONFIG);
+	ADC16_DoAutoCalibration(ADC0); //Útil ?
 
 
 

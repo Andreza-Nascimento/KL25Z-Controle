@@ -66,8 +66,9 @@ int main(void) {
 
     Control::setSamplingFrequency(10);
     Control::setControlLawHandle(CtrlLaw);
-  //  Control::start();
+    Control::start();
 
+    Control::ADC oi(32);
 
 
     while(1) {

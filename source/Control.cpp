@@ -60,6 +60,14 @@ Control::~Control() {
 }
 
 
+// ADC METHODS
+
+uint32_t Control::ADC::getConversion(){
+	//while(ADC16_SetChannelConfig(ADC0, kADC16_ChannelMuxA, ChannelConfig))
+	return ADC16_GetChannelConversionValue(ADC0, kADC16_ChannelMuxA);
+}
+
+
 FunPt Control::ControlHandle = nullptr;
 bool Control::isRunning = false;
 

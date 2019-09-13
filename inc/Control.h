@@ -10,6 +10,7 @@
 
 #include "fsl_debug_console.h"
 #include "fsl_pit.h"
+#include "fsl_adc16.h"
 
 // Implementar :
 // Setar Amostragem
@@ -29,9 +30,25 @@
 
 typedef void (*FunPt)();
 
-
 class Control {
 public:
+
+	class ADC {
+	public:
+		ADC(uint32_t ChannelNumber){
+			ChannelConfig.channelNumber = ChannelNumber;
+			ChannelConfig.enableInterruptOnConversionCompleted = false;
+			ChannelConfig.enableDifferentialConversion = false;
+		};
+
+
+		uint32_t getConversion();
+		~ADC(){};
+
+	private:
+		adc16_channel_config_t ChannelConfig;
+
+	};
 
 	static void setSamplingFrequency(float Hz);
 	static void setSamplingTime(float Ts);
@@ -43,12 +60,17 @@ public:
 
 	//Blocking!
 	static void delay(uint32_t usec);
+
+
+
 private:
 	Control();
 	virtual ~Control();
 	static bool isRunning;
 	static FunPt ControlHandle;
 
+
 };
+
 
 #endif /* CONTROL_H_ */
