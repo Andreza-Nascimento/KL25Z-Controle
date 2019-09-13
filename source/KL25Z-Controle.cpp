@@ -40,7 +40,10 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 /* TODO: insert other include files here. */
+
 #include "arm_math.h" //Operações DSP
+#include "inc/Control.h" //API principal para aplicações Controle
+
 /* TODO: insert other definitions and declarations here. */
 
 /*
