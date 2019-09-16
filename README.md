@@ -1,8 +1,7 @@
 # KL25Z-Controle
 
-Template fundamental para facilitação da implementação de aplicaçẽos de controle;
+Template/API fundamental para facilitação da implementação de aplicaçẽos de controle;
 O Template prevê:
-
 
 * Uso de Timer (PIT) para amostragem precisa;
  
@@ -15,4 +14,12 @@ O Template prevê:
 * Uso de GPIO (*General Purpose Input Output*) para interfaceamento Humano-Micro e acionamento autônomo
 
 * Fácil Integração de módulos Bluetooth e Acelerômetros do Laboratório
+
+***TAREFAS***
+
+- [ ] Criar Documentação da API
+
+- [ ] Implementação da classe PWM
+
+
 
