@@ -8,7 +8,7 @@
 #ifndef INTERRUPTS_H_
 #define INTERRUPTS_H_
 
-#include "inc/Control.h"
+#include "Control.h"
 //#include "fsl_pit.h"
 
 extern Control* ControleHandle;

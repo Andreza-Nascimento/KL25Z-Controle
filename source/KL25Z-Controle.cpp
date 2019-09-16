@@ -32,6 +32,7 @@
  * @file    KL25Z-Controle.cpp
  * @brief   Application entry point.
  */
+#include <inc/Control_ADC.h>
 #include <stdio.h>
 #include "board.h"
 #include "peripherals.h"
@@ -42,14 +43,17 @@
 /* TODO: insert other include files here. */
 
 #include "arm_math.h" //Operações DSP
-#include "inc/Control.h" //API principal para aplicações Controle
-#include "inc/Interrupts.h"
-
+#include "Control.h" //API principal para aplicações Controle
+#include "Interrupts.h"
+#include "Control_DAC.h"
+#include "Control_PWM.h"
 /* TODO: insert other definitions and declarations here. */
 
 /*
  * @brief   Application entry point.
  */
+
+
 
 //Escrever aqui lei de controle!
 void CtrlLaw(){
@@ -66,26 +70,29 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    Control::setSamplingFrequency(10);
+    Control::setSamplingFrequency(50);
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
 
-
     //Teste da API pro ADC
-    Control::ADC oi(15);
+    Control::ADC PTC1(15);
+    Control::ADC PTC2(11);
 
+    Control::PWM pwm0(0,20000);
 
-    	uint32_t adcval;
+    uint32_t adcval1,adcval2;
 
     while(1) {
     	LED_RED_TOGGLE();
     	Control::delay(1000000);
-    	adcval = oi.getConversion();
-    	CONTROLE_PRINT("%ADC : %d\r\n",adcval);
+    	adcval1 = PTC1.getConversion();
+    	adcval2 = PTC2.getConversion();
+    	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2);
 
     }
 
-
-
     return 0 ;
 }
+
+
+

@@ -5,7 +5,7 @@
  *      Author: marcus
  */
 
-#include <inc/Control.h>
+#include <Control.h>
 
 
 void Control::setSamplingFrequency(float Hz){
@@ -60,16 +60,7 @@ Control::~Control() {
 }
 
 
-// ADC METHODS
 
-uint32_t Control::ADC::getConversion(){
-	//while(ADC16_SetChannelConfig(ADC0, kADC16_ChannelMuxA, ChannelConfig))
-	ADC16_SetChannelConfig(ADC0, kADC16_ChannelMuxA, &ChannelConfig);
-    while (0U == (kADC16_ChannelConversionDoneFlag & ADC16_GetChannelStatusFlags(ADC0, kADC16_ChannelMuxA)))
-    {}
-
-	return ADC16_GetChannelConversionValue(ADC0, kADC16_ChannelMuxA);
-}
 
 
 FunPt Control::ControlHandle = nullptr;

@@ -10,7 +10,7 @@
 
 #include "fsl_debug_console.h"
 #include "fsl_pit.h"
-#include "fsl_adc16.h"
+
 
 // Implementar :
 // Setar Amostragem
@@ -22,10 +22,6 @@
 
 
 #define CONTROLE_PRINT PRINTF
-#define PIT_CANAL_0 kPIT_Chnl_0
-#define PIT_CANAL_1 kPIT_Chnl_1
-#define PIT_CANAL_2 kPIT_Chnl_2
-#define PIT_CANAL_3 kPIT_Chnl_3
 
 
 typedef void (*FunPt)();
@@ -33,22 +29,10 @@ typedef void (*FunPt)();
 class Control {
 public:
 
-	class ADC {
-	public:
-		ADC(uint32_t ChannelNumber){
-			ChannelConfig.channelNumber = ChannelNumber;
-			ChannelConfig.enableInterruptOnConversionCompleted = false;
-			ChannelConfig.enableDifferentialConversion = false;
-		};
+	class ADC;
+	class DAC;
+	class PWM;
 
-
-		uint32_t getConversion();
-		~ADC(){};
-
-	private:
-		adc16_channel_config_t ChannelConfig;
-
-	};
 
 	static void setSamplingFrequency(float Hz);
 	static void setSamplingTime(float Ts);

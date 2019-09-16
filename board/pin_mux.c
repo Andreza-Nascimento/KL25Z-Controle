@@ -13,6 +13,8 @@ package_id: MKL25Z128VLK4
 mcu_data: ksdk2_0
 processor_version: 6.0.0
 board: FRDM-KL25Z
+pin_labels:
+- {pin_num: '73', pin_signal: PTD0/SPI0_PCS0/TPM0_CH0, label: 'J2[6]/D10', identifier: TPM0_CH_0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -33,6 +35,8 @@ void BOARD_InitBootPins(void)
     BOARD_InitPins();
     BOARD_Leds();
     BOARD_ADC();
+    BOARD_DAC();
+    BOARD_PWM();
 }
 
 /* clang-format off */
@@ -139,6 +143,7 @@ BOARD_ADC:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: '56', peripheral: ADC0, signal: 'SE, 15', pin_signal: ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0}
+  - {pin_num: '57', peripheral: ADC0, signal: 'SE, 11', pin_signal: ADC0_SE11/TSI0_CH15/PTC2/I2C1_SDA/TPM0_CH1}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -156,6 +161,61 @@ void BOARD_ADC(void)
 
     /* PORTC1 (pin 56) is configured as ADC0_SE15 */
     PORT_SetPinMux(PORTC, 1U, kPORT_PinDisabledOrAnalog);
+
+    /* PORTC2 (pin 57) is configured as ADC0_SE11 */
+    PORT_SetPinMux(PORTC, 2U, kPORT_PinDisabledOrAnalog);
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_DAC:
+- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
+- pin_list:
+  - {pin_num: '22', peripheral: DAC0, signal: OUT, pin_signal: DAC0_OUT/ADC0_SE23/CMP0_IN4/PTE30/TPM0_CH3/TPM_CLKIN1}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_DAC
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_DAC(void)
+{
+    /* Port E Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortE);
+
+    /* PORTE30 (pin 22) is configured as DAC0_OUT */
+    PORT_SetPinMux(PORTE, 30U, kPORT_PinDisabledOrAnalog);
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_PWM:
+- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
+- pin_list:
+  - {pin_num: '73', peripheral: TPM0, signal: 'CH, 0', pin_signal: PTD0/SPI0_PCS0/TPM0_CH0, direction: OUTPUT}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_PWM
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_PWM(void)
+{
+    /* Port D Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortD);
+
+    /* PORTD0 (pin 73) is configured as TPM0_CH0 */
+    PORT_SetPinMux(BOARD_PWM_TPM0_CH_0_PORT, BOARD_PWM_TPM0_CH_0_PIN, kPORT_MuxAlt4);
 }
 /***********************************************************************************************************************
  * EOF
