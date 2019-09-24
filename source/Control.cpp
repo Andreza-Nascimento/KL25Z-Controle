@@ -42,7 +42,7 @@ void Control::runControl(){
 	ControlHandle();
 }
 
-//usar Canal 1
+//Tempo para esperar em usec
 void Control::delay(uint32_t usec){
 	PIT_SetTimerPeriod(PIT,kPIT_Chnl_1 , USEC_TO_COUNT(usec,CLOCK_GetBusClkFreq()));
 	PIT_StartTimer(PIT, kPIT_Chnl_1);

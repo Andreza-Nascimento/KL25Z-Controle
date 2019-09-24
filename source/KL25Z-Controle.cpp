@@ -70,9 +70,11 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    Control::setSamplingFrequency(50);
+    Control::setSamplingFrequency(10);
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
+
+    bool first;
 
     //Teste da API pro ADC
     Control::ADC PTC1(15);
@@ -83,11 +85,20 @@ int main(void) {
     uint32_t adcval1,adcval2;
 
     while(1) {
-    	LED_RED_TOGGLE();
-    	Control::delay(1000000);
+    //	LED_RED_TOGGLE();
+    	Control::delay(5000000);
     	adcval1 = PTC1.getConversion();
     	adcval2 = PTC2.getConversion();
     	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2);
+
+    	//Pequeno teste para variar o tempo de amostragem em RUNTIME!
+    	if(first){
+    		Control::setSamplingFrequency(10);
+    		first = false;
+    	} else {
+    		Control::setSamplingFrequency(50);
+    		first = true;
+    	}
 
     }
 
