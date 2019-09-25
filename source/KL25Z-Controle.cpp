@@ -47,21 +47,17 @@
 #include "Interrupts.h"
 #include "Control_DAC.h"
 #include "Control_PWM.h"
+#include "Matrix.h"
 /* TODO: insert other definitions and declarations here. */
 
 /*
  * @brief   Application entry point.
  */
-
-
-
-//Escrever aqui lei de controle!
-void CtrlLaw(){
-	LED_BLUE_TOGGLE();
-}
+void CtrlLaw();
 
 
 int main(void) {
+
 
   	/* Init board hardware. */
     BOARD_InitBootPins();
@@ -70,11 +66,10 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+
     Control::setSamplingFrequency(10);
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
-
-    bool first;
 
     //Teste da API pro ADC
     Control::ADC PTC1(15);
@@ -91,19 +86,19 @@ int main(void) {
     	adcval2 = PTC2.getConversion();
     	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2);
 
-    	//Pequeno teste para variar o tempo de amostragem em RUNTIME!
-    	if(first){
-    		Control::setSamplingFrequency(10);
-    		first = false;
-    	} else {
-    		Control::setSamplingFrequency(50);
-    		first = true;
-    	}
 
-    }
-
+}
     return 0 ;
 }
+
+
+
+
+//Escrever aqui lei de controle!
+void CtrlLaw(){
+	LED_BLUE_TOGGLE();
+}
+
 
 
 

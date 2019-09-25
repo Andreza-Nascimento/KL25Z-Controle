@@ -24,6 +24,7 @@
          <pins_profile>
             <processor_version>6.0.0</processor_version>
             <pin_labels>
+               <pin_label pin_num="56" pin_signal="ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0" label="J10[12]/U6[31]/A5" identifier=""/>
                <pin_label pin_num="73" pin_signal="PTD0/SPI0_PCS0/TPM0_CH0" label="J2[6]/D10" identifier="TPM0_CH_0"/>
             </pin_labels>
          </pins_profile>
