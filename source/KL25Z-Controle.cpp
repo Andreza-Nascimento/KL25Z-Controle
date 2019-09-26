@@ -41,7 +41,6 @@
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
 /* TODO: insert other include files here. */
-
 #include "arm_math.h" //Operações DSP
 #include "Control.h" //API principal para aplicações Controle
 #include "Interrupts.h"
@@ -49,13 +48,16 @@
 #include "Control_PWM.h"
 #include "Matrix.h"
 /* TODO: insert other definitions and declarations here. */
+#define DEBUG_PIN_TOGGLE() \
+    GPIO_TogglePinsOutput(BOARD_INITPINS_DEBUG_PIN_GPIO, 1U << BOARD_INITPINS_DEBUG_PIN_PIN) /*!< Toggle on target LED_BLUE */
 
 /*
  * @brief   Application entry point.
  */
 void CtrlLaw();
 
-
+Control::PWM pwm0(0,20000);
+Control::PWM pwm1(1,10000);
 int main(void) {
 
 
@@ -67,7 +69,7 @@ int main(void) {
     BOARD_InitDebugConsole();
 
 
-    Control::setSamplingFrequency(10);
+    Control::setSamplingFrequency(100);
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
 
@@ -75,7 +77,9 @@ int main(void) {
     Control::ADC PTC1(15);
     Control::ADC PTC2(11);
 
-    Control::PWM pwm0(0,20000);
+
+
+    pwm1.setDuty(25);
 
     uint32_t adcval1,adcval2;
 
@@ -92,11 +96,26 @@ int main(void) {
 }
 
 
-
-
+int k = 0;
+bool Up = true;
 //Escrever aqui lei de controle!
 void CtrlLaw(){
 	LED_BLUE_TOGGLE();
+	DEBUG_PIN_TOGGLE();
+	if(Up){
+		k++;
+		if(k==101)
+			Up = false;
+
+	} else { //Down
+		k--;
+		if(k==-1)
+			Up = true;
+
+	}
+
+	k = 50;
+	pwm0.setDuty(k);
 }
 
 

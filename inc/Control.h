@@ -12,6 +12,8 @@
 #include "fsl_pit.h"
 
 
+
+
 // Implementar :
 // Setar Amostragem
 // Setar ADC

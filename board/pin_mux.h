@@ -40,6 +40,13 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITPINS_DEBUG_UART_RX_PIN 1U     /*!<@brief PORTA pin index: 1 */
                                                 /* @} */
 
+/*! @name PORTC9 (number 66), J1[16]
+  @{ */
+#define BOARD_INITPINS_DEBUG_PIN_GPIO GPIOC /*!<@brief GPIO device name: GPIOC */
+#define BOARD_INITPINS_DEBUG_PIN_PORT PORTC /*!<@brief PORT device name: PORTC */
+#define BOARD_INITPINS_DEBUG_PIN_PIN 9U     /*!<@brief PORTC pin index: 9 */
+                                            /* @} */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
