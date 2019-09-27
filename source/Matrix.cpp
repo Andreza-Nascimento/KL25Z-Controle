@@ -10,7 +10,7 @@
 Matrix::Matrix(int rows,int columns){
 	this->rows = rows;
 	this->columns = columns;
-	this->data = new float(rows*columns);
+	this->data = new float[rows*columns];
 	arm_mat_init_f32(&M, rows, columns, this->data);
 	memset(data,0,rows*columns*sizeof(float));
 
