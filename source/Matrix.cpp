@@ -28,7 +28,7 @@ Matrix::Matrix(int rows,int columns,float* data){
 
 Matrix::~Matrix() {
 	// TODO Auto-generated destructor stub
-	delete this->data;
+	delete[] this->data;
 }
 
 void Matrix::Print(){
