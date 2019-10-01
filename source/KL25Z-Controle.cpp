@@ -67,11 +67,6 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    std::vector<tpm_chnl_pwm_signal_param_t> paramlist;
-    tpm_chnl_pwm_signal_param_t ola;
-    paramlist.push_back(ola);
-
-
 
     Control::setSamplingFrequency(100);
     Control::setControlLawHandle(CtrlLaw);
@@ -91,10 +86,7 @@ int main(void) {
     	adcval2 = PTC2.getConversion();
     	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2);
 
-
 }
-
-
 
 
 }

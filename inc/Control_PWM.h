@@ -12,6 +12,8 @@
 #include "fsl_tpm.h"
 #include "pin_mux.h"
 
+#include <vector>
+
 class Control::PWM {
 public:
 	PWM(uint32_t Chnl);
@@ -27,7 +29,8 @@ public:
 
 
 private:
-	static tpm_chnl_pwm_signal_param_t* ParamList;
+	static uint32_t Frequency;
+	static std::vector<tpm_chnl_pwm_signal_param_t> ParamList;
 	static tpm_config_t Config;
 	static uint8_t N_Channels;
 

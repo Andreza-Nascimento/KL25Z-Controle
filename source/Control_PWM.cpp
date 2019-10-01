@@ -28,9 +28,9 @@ Control::PWM::PWM(uint32_t Chnl) {
     if(N_Channels==1){
     TPM_GetDefaultConfig(&Config);
 	TPM_Init(TPM0, &Config);
-	TPM_SetupPwm(TPM0, ParamList, 1, kTPM_CenterAlignedPwm, 20000, CLOCK_GetPllFllSelClkFreq());
 	TPM_StartTimer(TPM0, kTPM_SystemClock);
     }
+    TPM_SetupPwm(TPM0, &ParamList[0], 1, kTPM_CenterAlignedPwm, Control::PWM::Frequency , CLOCK_GetPllFllSelClkFreq());
 
 
 
@@ -41,7 +41,8 @@ void Control::PWM::setDuty(uint32_t duty){
 }
 
 void Control::PWM::setFrequency(uint32_t Frequency){
-	//TPM_SetupPwm(TPM0, chnlParams, numOfChnls, mode, pwmFreq_Hz, srcClock_Hz)
+	Control::PWM::Frequency = Frequency;
+	TPM_SetupPwm(TPM0, &ParamList[0], N_Channels, kTPM_CenterAlignedPwm, Frequency, CLOCK_GetPllFllSelClkFreq())
 
 }
 
@@ -52,5 +53,6 @@ Control::PWM::~PWM() {
 
 tpm_config_t Control::PWM::Config;
 uint8_t Control::PWM::N_Channels = 0;
-tpm_chnl_pwm_signal_param_t* Control::PWM::ParamList;
+uint32_t Control::PWM::Frequency = 20000; //Padrão
+std::vector<tpm_chnl_pwm_signal_param_t> Control::PWM::ParamList;
 
