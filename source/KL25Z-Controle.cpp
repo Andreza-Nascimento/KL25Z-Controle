@@ -71,6 +71,8 @@ int main(void) {
     tpm_chnl_pwm_signal_param_t ola;
     paramlist.push_back(ola);
 
+
+
     Control::setSamplingFrequency(100);
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
