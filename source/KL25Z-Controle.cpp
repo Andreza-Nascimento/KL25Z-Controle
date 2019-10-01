@@ -67,9 +67,6 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    std::vector<tpm_chnl_pwm_signal_param_t> paramlist;
-    tpm_chnl_pwm_signal_param_t ola;
-    paramlist.push_back(ola);
 
     Control::setSamplingFrequency(100);
     Control::setControlLawHandle(CtrlLaw);
@@ -78,6 +75,9 @@ int main(void) {
     //Teste da API pro ADC
     Control::ADC PTC1(15);
     Control::ADC PTC2(11);
+
+    //Teste da API do PWM
+    Control::PWM::setFrequency(10000);
 
 
     uint32_t adcval1,adcval2;

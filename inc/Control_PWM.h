@@ -27,9 +27,10 @@ public:
 
 
 private:
-	static tpm_chnl_pwm_signal_param_t* ParamList;
+	static tpm_chnl_pwm_signal_param_t ParamList[8]; //Hardcoded
 	static tpm_config_t Config;
 	static uint8_t N_Channels;
+	static uint32_t Frequency;
 
 };
 
