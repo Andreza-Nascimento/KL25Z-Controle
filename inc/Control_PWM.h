@@ -14,19 +14,22 @@
 
 class Control::PWM {
 public:
-	PWM(uint32_t Chnl, uint32_t Frequency);
+	PWM(uint32_t Chnl);
 	virtual ~PWM();
+
 	void setDuty(uint32_t duty);
 
 	//implementar depois high precision mode (duty ~ contagens)
 
 	static void setConfig(tpm_config_t Config);
+	static void setFrequency(uint32_t Frequency);
 
 
 
 private:
-	tpm_chnl_pwm_signal_param_t Param;
+	static tpm_chnl_pwm_signal_param_t* ParamList;
 	static tpm_config_t Config;
+	static uint8_t N_Channels;
 
 };
 

@@ -16,7 +16,7 @@ board: FRDM-KL25Z
 pin_labels:
 - {pin_num: '56', pin_signal: ADC0_SE15/TSI0_CH14/PTC1/LLWU_P6/RTC_CLKIN/I2C1_SCL/TPM0_CH0, label: 'J10[12]/U6[31]/A5'}
 - {pin_num: '66', pin_signal: CMP0_IN3/PTC9/I2C0_SDA/TPM0_CH5, label: 'J1[16]', identifier: DEBUG_PIN}
-- {pin_num: '73', pin_signal: PTD0/SPI0_PCS0/TPM0_CH0, label: 'J2[6]/D10', identifier: TPM0_CH_0}
+- {pin_num: '73', pin_signal: PTD0/SPI0_PCS0/TPM0_CH0, label: 'J2[6]/D10'}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -214,7 +214,7 @@ BOARD_PWM:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: '73', peripheral: TPM0, signal: 'CH, 0', pin_signal: PTD0/SPI0_PCS0/TPM0_CH0, direction: OUTPUT}
-  - {pin_num: '30', peripheral: TPM0, signal: 'CH, 1', pin_signal: TSI0_CH5/PTA4/I2C1_SDA/TPM0_CH1/NMI_b}
+  - {pin_num: '30', peripheral: TPM0, signal: 'CH, 1', pin_signal: TSI0_CH5/PTA4/I2C1_SDA/TPM0_CH1/NMI_b, direction: OUTPUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -236,7 +236,7 @@ void BOARD_PWM(void)
     PORT_SetPinMux(PORTA, 4U, kPORT_MuxAlt3);
 
     /* PORTD0 (pin 73) is configured as TPM0_CH0 */
-    PORT_SetPinMux(BOARD_PWM_TPM0_CH_0_PORT, BOARD_PWM_TPM0_CH_0_PIN, kPORT_MuxAlt4);
+    PORT_SetPinMux(PORTD, 0U, kPORT_MuxAlt4);
 }
 /***********************************************************************************************************************
  * EOF

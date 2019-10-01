@@ -47,6 +47,7 @@
 #include "Control_DAC.h"
 #include "Control_PWM.h"
 #include "Matrix.h"
+#include <vector>
 /* TODO: insert other definitions and declarations here. */
 #define DEBUG_PIN_TOGGLE() \
     GPIO_TogglePinsOutput(BOARD_INITPINS_DEBUG_PIN_GPIO, 1U << BOARD_INITPINS_DEBUG_PIN_PIN) /*!< Toggle on target LED_BLUE */
@@ -56,8 +57,6 @@
  */
 void CtrlLaw();
 
-Control::PWM pwm0(0,20000);
-Control::PWM pwm1(1,10000);
 int main(void) {
 
 
@@ -68,6 +67,9 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    std::vector<tpm_chnl_pwm_signal_param_t> paramlist;
+    tpm_chnl_pwm_signal_param_t ola;
+    paramlist.push_back(ola);
 
     Control::setSamplingFrequency(100);
     Control::setControlLawHandle(CtrlLaw);
@@ -77,9 +79,6 @@ int main(void) {
     Control::ADC PTC1(15);
     Control::ADC PTC2(11);
 
-
-
-    pwm1.setDuty(25);
 
     uint32_t adcval1,adcval2;
 
@@ -92,7 +91,10 @@ int main(void) {
 
 
 }
-    return 0 ;
+
+
+
+
 }
 
 
@@ -100,6 +102,10 @@ int k = 0;
 bool Up = true;
 //Escrever aqui lei de controle!
 void CtrlLaw(){
+	static Control::PWM pwm0(0);
+	static Control::PWM pwm1(1);
+
+
 	LED_BLUE_TOGGLE();
 	DEBUG_PIN_TOGGLE();
 	if(Up){
@@ -116,6 +122,7 @@ void CtrlLaw(){
 
 	k = 50;
 	pwm0.setDuty(k);
+	pwm1.setDuty(25);
 }
 
 

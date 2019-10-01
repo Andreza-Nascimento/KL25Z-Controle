@@ -92,12 +92,6 @@ void BOARD_ADC(void);
  */
 void BOARD_DAC(void);
 
-/*! @name PORTD0 (number 73), J2[6]/D10
-  @{ */
-#define BOARD_PWM_TPM0_CH_0_PORT PORTD /*!<@brief PORT device name: PORTD */
-#define BOARD_PWM_TPM0_CH_0_PIN 0U     /*!<@brief PORTD pin index: 0 */
-                                       /* @} */
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
