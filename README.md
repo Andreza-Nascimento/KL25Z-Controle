@@ -13,7 +13,7 @@ O Template prevê:
 
 * Uso de GPIO (*General Purpose Input Output*) para interfaceamento Humano-Micro e acionamento autônomo
 
-* Fácil Integração de módulos Bluetooth e Acelerômetros do Laboratório
+* Fácil Integração de módulos Bluetooth e Acelerômetros do Laboratório (Pós Curso)
 
 Imagem com Pinagem da KL25Z
 
