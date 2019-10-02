@@ -17,6 +17,7 @@ class Control::DAC {
 
 public:
 	static void SetValue(uint16_t dacValue);
+	static void SetVoltage(float volts);
 	static void Init();
 
 private:

@@ -41,6 +41,9 @@ private:
 	arm_matrix_instance_f32 M;
 };
 
+//o acesso elementar eh feito em forma de array 1D, mapeando em [Ncol*lin + col], onde col e lin sao iteradores, Ncol eh o numero de colunas
+//da matriz partindo do 0. ==> A(i,j) = A[Ncol*i + j].
+
 //typedef enum
 //{
 //  ARM_MATH_SUCCESS = 0,                /**< No error */

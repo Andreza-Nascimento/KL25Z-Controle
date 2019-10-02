@@ -76,9 +76,12 @@ int main(void) {
     //Control::delay(1000000);
 
 
-    Control::setSamplingFrequency(10);
+    Control::setSamplingFrequency(100);
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
+
+    //Teste da API pro DAC
+    Control::DAC::Init();
 
     //Teste da API pro ADC
     Control::ADC PTC1(15);
@@ -87,7 +90,14 @@ int main(void) {
     //Teste da API do PWM
     Control::PWM::setFrequency(10000);
     Control::PWM PWM0(1);
-    PWM0.setDuty(80);
+
+    //Teste da API de MATRIZES
+    float A[] = {1,2,3,4};
+    Matrix MA(2,2,A);
+    Matrix MB(2,2);
+    MB.Inverse(MA, MB);
+    MB.Print();
+
 
     uint32_t adcval1,adcval2;
     float pi = M_1_PI;
@@ -100,12 +110,7 @@ int main(void) {
     	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2);
     	CONTROLE_PRINT("pi = %f\r\n",pi);
 
-
-
 }
-
-
-
 
 }
 
@@ -118,8 +123,6 @@ void CtrlLaw(){
 
 //Static para ser construído apenas uma vez
 static Control::PWM PWM0(0);
-
-
 
 	LED_BLUE_TOGGLE();
 	DEBUG_PIN_TOGGLE();
@@ -137,6 +140,8 @@ static Control::PWM PWM0(0);
 	}
 
 	PWM0.setDuty(k);
+	if(k>0)
+	Control::DAC::SetValue(k*40);
 
 }
 

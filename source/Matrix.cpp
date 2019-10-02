@@ -32,17 +32,18 @@ Matrix::~Matrix() {
 }
 
 void Matrix::Print(){
-	for(int j=0;j<rows;j++){
+	for(int i=0;i<rows;i++){
 		PRINTF("[  ");
-		for(int i=0;i<columns;i++)
-		PRINTF("%f ",data[columns*j + i]);
+		for(int j=0;j<columns;j++)
+		PRINTF("%f ",data[columns*i + j]);
 		PRINTF("]\n\r");
 	}
 	PRINTF("\n\r");
 }
 
+//Seta valor da linha "i" e coluna "j" como "value"
 void Matrix::SetValue(int i,int j,float value){
-	this->data[columns*j + i] = value;
+	this->data[columns*i + j] = value;
 }
 
 void Matrix::SetValues(const float* values){

@@ -21,7 +21,7 @@ public:
 
 	//implementar depois high precision mode (duty ~ contagens)
 
-	static void setConfig(tpm_config_t Config);
+//	static void setConfig(tpm_config_t Config);
 	static void setFrequency(uint32_t Frequency);
 
 

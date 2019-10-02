@@ -28,7 +28,15 @@ Control::DAC::~DAC() {
 	// TODO Auto-generated destructor stub
 }
 
+//valor 12-bits (entre 0 e 4096)
 void Control::DAC::SetValue(uint16_t dacValue){
+	DAC_SetBufferValue(DAC0, 0U, dacValue);
+
+}
+
+//Valor entre 0 e 3.3V
+void Control::DAC::SetVoltage(float volts){
+	uint16_t dacValue = (volts*4096.0f)/3.31f;
 	DAC_SetBufferValue(DAC0, 0U, dacValue);
 
 }
