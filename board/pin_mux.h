@@ -92,6 +92,18 @@ void BOARD_ADC(void);
  */
 void BOARD_DAC(void);
 
+/*! @name PORTD0 (number 73), J2[6]/D10
+  @{ */
+#define BOARD_PWM_TPM_CH0_PORT PORTD /*!<@brief PORT device name: PORTD */
+#define BOARD_PWM_TPM_CH0_PIN 0U     /*!<@brief PORTD pin index: 0 */
+                                     /* @} */
+
+/*! @name PORTA4 (number 30), J1[10]/D4
+  @{ */
+#define BOARD_PWM_TPM_CH1_PORT PORTA /*!<@brief PORT device name: PORTA */
+#define BOARD_PWM_TPM_CH1_PIN 4U     /*!<@brief PORTA pin index: 4 */
+                                     /* @} */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *

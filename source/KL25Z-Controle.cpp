@@ -49,12 +49,18 @@
 #include "Matrix.h"
 #include <vector>
 /* TODO: insert other definitions and declarations here. */
+
+//DEBUG PIN -> PTC9
 #define DEBUG_PIN_TOGGLE() \
-    GPIO_TogglePinsOutput(BOARD_INITPINS_DEBUG_PIN_GPIO, 1U << BOARD_INITPINS_DEBUG_PIN_PIN) /*!< Toggle on target LED_BLUE */
+    GPIO_TogglePinsOutput(BOARD_INITPINS_DEBUG_PIN_GPIO, 1U << BOARD_INITPINS_DEBUG_PIN_PIN)
 
 /*
  * @brief   Application entry point.
  */
+
+
+
+
 void CtrlLaw();
 
 int main(void) {
@@ -67,8 +73,10 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    //Control::delay(1000000);
 
-    Control::setSamplingFrequency(100);
+
+    Control::setSamplingFrequency(10);
     Control::setControlLawHandle(CtrlLaw);
     Control::start();
 
@@ -78,16 +86,20 @@ int main(void) {
 
     //Teste da API do PWM
     Control::PWM::setFrequency(10000);
-
+    Control::PWM PWM0(1);
+    PWM0.setDuty(80);
 
     uint32_t adcval1,adcval2;
+    float pi = M_1_PI;
 
     while(1) {
     //	LED_RED_TOGGLE();
-    	Control::delay(5000000);
+    	Control::delay(1000000);
     	adcval1 = PTC1.getConversion();
     	adcval2 = PTC2.getConversion();
     	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2);
+    	CONTROLE_PRINT("pi = %f\r\n",pi);
+
 
 
 }
@@ -100,16 +112,20 @@ int main(void) {
 
 int k = 0;
 bool Up = true;
+bool init = false;
 //Escrever aqui lei de controle!
 void CtrlLaw(){
-	static Control::PWM pwm0(0);
-	static Control::PWM pwm1(1);
+
+//Static para ser construído apenas uma vez
+static Control::PWM PWM0(0);
+
 
 
 	LED_BLUE_TOGGLE();
 	DEBUG_PIN_TOGGLE();
 	if(Up){
 		k++;
+		//PWM1.setDuty(10);
 		if(k==101)
 			Up = false;
 
@@ -120,9 +136,8 @@ void CtrlLaw(){
 
 	}
 
-	k = 50;
-	pwm0.setDuty(k);
-	pwm1.setDuty(25);
+	PWM0.setDuty(k);
+
 }
 
 
