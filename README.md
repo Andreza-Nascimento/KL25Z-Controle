@@ -1,6 +1,6 @@
 # KL25Z-Controle
 
-Template/API fundamental para facilitação da implementação de aplicaçẽos de controle;
+Template/API fundamental para facilitação da implementação de aplicações de controle;
 O Template prevê:
 
 * Uso de Timer (PIT) para amostragem precisa;
