@@ -16,6 +16,7 @@ O Template prevê:
 * Fácil Integração de módulos Bluetooth e Acelerômetros do Laboratório
 
 Imagem com Pinagem da KL25Z
+
 ![KL25Z Pinout](http://mjrnet.org/pinscape/BuildGuideV2/kl25zPinOut.png)
 
 ***TAREFAS***
