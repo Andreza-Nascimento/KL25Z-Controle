@@ -23,8 +23,6 @@ Imagem com Pinagem da KL25Z
 
 - [ ] Criar Documentação da API
 
-- [ ] Implementação da classe PWM
-
 
 
 
