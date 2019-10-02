@@ -22,4 +22,6 @@ O Template prevê:
 - [ ] Implementação da classe PWM
 
 
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+
 
