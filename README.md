@@ -13,13 +13,16 @@ O Template prevê:
 
 * Uso de GPIO (*General Purpose Input Output*) para interfaceamento Humano-Micro e acionamento autônomo
 
-* Fácil Integração de módulos Bluetooth e Acelerômetros do Laboratório
+* Fácil Integração de módulos Bluetooth e Acelerômetros do Laboratório (Pós Curso)
+
+Imagem com Pinagem da KL25Z
+
+![KL25Z Pinout](http://mjrnet.org/pinscape/BuildGuideV2/kl25zPinOut.png)
 
 ***TAREFAS***
 
 - [ ] Criar Documentação da API
 
-- [ ] Implementação da classe PWM
 
 
 
