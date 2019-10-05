@@ -59,8 +59,6 @@
  */
 
 
-
-
 void CtrlLaw();
 
 int main(void) {
