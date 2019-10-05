@@ -65,7 +65,6 @@ void CtrlLaw();
 
 int main(void) {
 
-
   	/* Init board hardware. */
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
@@ -73,75 +72,9 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    //Control::delay(1000000);
-
-
-    Control::setSamplingFrequency(100);
-    Control::setControlLawHandle(CtrlLaw);
-    Control::start();
-
-    //Teste da API pro DAC
-    Control::DAC::Init();
-
-    //Teste da API pro ADC
-    Control::ADC PTC1(15);
-    Control::ADC PTC2(11);
-
-    //Teste da API do PWM
-    Control::PWM::setFrequency(10000);
-    Control::PWM PWM0(1);
-
-    //Teste da API de MATRIZES
-    float A[] = {1,2,3,4};
-    Matrix MA(2,2,A);
-    Matrix MB(2,2);
-    MB.Inverse(MA, MB);
-    MB.Print();
-
-
-    uint32_t adcval1,adcval2;
-    float pi = M_1_PI;
-
     while(1) {
-    //	LED_RED_TOGGLE();
-    	Control::delay(1000000);
-    	adcval1 = PTC1.getConversion();
-    	adcval2 = PTC2.getConversion();
-    	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2);
-    	CONTROLE_PRINT("pi = %f\r\n",pi);
 
 }
-
-}
-
-
-int k = 0;
-bool Up = true;
-bool init = false;
-//Escrever aqui lei de controle!
-void CtrlLaw(){
-
-//Static para ser construído apenas uma vez
-static Control::PWM PWM0(0);
-
-	LED_BLUE_TOGGLE();
-	DEBUG_PIN_TOGGLE();
-	if(Up){
-		k++;
-		//PWM1.setDuty(10);
-		if(k==101)
-			Up = false;
-
-	} else { //Down
-		k--;
-		if(k==-1)
-			Up = true;
-
-	}
-
-	PWM0.setDuty(k);
-	if(k>0)
-	Control::DAC::SetValue(k*40);
 
 }
 
