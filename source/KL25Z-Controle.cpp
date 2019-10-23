@@ -32,7 +32,7 @@
  * @file    KL25Z-Controle.cpp
  * @brief   Application entry point.
  */
-#include <inc/Control_ADC.h>
+
 #include <stdio.h>
 #include "board.h"
 #include "peripherals.h"
@@ -44,6 +44,7 @@
 #include "arm_math.h" //Operações DSP
 #include "Control.h" //API principal para aplicações Controle
 #include "Interrupts.h"
+#include <Control_ADC.h>
 #include "Control_DAC.h"
 #include "Control_PWM.h"
 #include "Matrix.h"
@@ -90,6 +91,8 @@ int main(void) {
     //Teste da API do PWM
     Control::PWM::setFrequency(10000);
     Control::PWM PWM0(1);
+
+    PWM0.setDuty(50);
 
     //Teste da API de MATRIZES
     float A[] = {1,2,3,4};
