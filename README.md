@@ -11,7 +11,7 @@ O Template prevê:
 
 * Facilitação do uso de bibliotecas DSP usando abstração por classes C++;
 
-* Uso de GPIO (*General Purpose Input Output*) para interfaceamento Humano-Micro e acionamento autônomo
+* Uso de GPIO (*General Purpose Input Output*) para interfaceamento Humano-Micro e acionamento autônomo;
 
 * Fácil Integração de módulos Bluetooth e Acelerômetros do Laboratório (**Pós Curso**)
 
