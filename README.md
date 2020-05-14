@@ -7,7 +7,7 @@ O Template prevê:
  
 * Uso de ADC/DAC para leitura e escrita de sinais analógicos;
 
-* Uso de PWM para escrita de sinais analógicos pulsados
+* Uso de PWM para escrita de sinais analógicos pulsados;
 
 * Facilitação do uso de bibliotecas DSP usando abstração por classes C++
 
