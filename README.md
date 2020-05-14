@@ -5,7 +5,7 @@ O Template prevê:
 
 * Uso de Timer (PIT) para amostragem precisa;
  
-* Uso de ADC/DAC para leitura e escrita de sinais analógicos
+* Uso de ADC/DAC para leitura e escrita de sinais analógicos;
 
 * Uso de PWM para escrita de sinais analógicos pulsados
 
