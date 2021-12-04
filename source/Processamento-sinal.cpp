@@ -54,7 +54,6 @@
 //DEBUG PIN -> PTC9
 #define DEBUG_PIN_TOGGLE() \
     GPIO_TogglePinsOutput(BOARD_INITPINS_DEBUG_PIN_GPIO, 1U << BOARD_INITPINS_DEBUG_PIN_PIN)
-void CtrlLaw();
 
 int main(void) {
   	/* Init board hardware. */
@@ -63,9 +62,6 @@ int main(void) {
     BOARD_InitBootPeripherals();
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
-    //Control::delay(1000000);
-    Control::setSamplingFrequency(100); //Seta frequência da execução a 100 Hz
-    Control::setControlLawHandle(CtrlLaw); //Função a ser executada na frequência determinada
   
     Control::start(); //Inicia
     Control::DAC::Init();
@@ -79,8 +75,8 @@ int main(void) {
                       0,
                       1);
 
-    uint32_t i;
-    uint16_t sinal_tempo, sinal_frequencia, mag_frequencia;
+    //int32_t i;
+    q15_t sinal_tempo, sinal_frequencia, mag_frequencia;
     
     while(1) { //Loop infinito
       sinal_tempo = Sinal.getConversion(); //Sinal digital
@@ -89,12 +85,12 @@ int main(void) {
                   (q15_t *)sinal_tempo,
                   (q15_t *)sinal_frequencia);
       
-      for(i=0,i<256,i++) {
+      /*for(i=0;i<256;i++) {
         sinal_frequencia[i]<<=6;
-      }
+      }*/
 
       arm_cmplx_mag_q15((q15_t *)sinal_frequencia,
-                        (q15_t *)mag_frequencia;
+                        (q15_t *)mag_frequencia,
                         128);
 
   }
