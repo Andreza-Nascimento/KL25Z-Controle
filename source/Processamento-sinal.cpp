@@ -83,7 +83,7 @@ int main(void) {
     uint16_t sinal_tempo, sinal_frequencia, mag_frequencia;
     
     while(1) { //Loop infinito
-      sinal_tempo = Sinal.getConvertion(); //Sinal digital
+      sinal_tempo = Sinal.getConversion(); //Sinal digital
       
       arm_rfft_q15(&Instancia_RealFFT,
                   (q15_t *)sinal_tempo,
