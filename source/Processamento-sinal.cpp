@@ -54,105 +54,52 @@
 //DEBUG PIN -> PTC9
 #define DEBUG_PIN_TOGGLE() \
     GPIO_TogglePinsOutput(BOARD_INITPINS_DEBUG_PIN_GPIO, 1U << BOARD_INITPINS_DEBUG_PIN_PIN)
-
-/*
- * @brief   Application entry point.
- */
-
-
-
-
 void CtrlLaw();
 
 int main(void) {
-
-
   	/* Init board hardware. */
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
-
     //Control::delay(1000000);
-
-
     Control::setSamplingFrequency(100); //Seta frequência da execução a 100 Hz
     Control::setControlLawHandle(CtrlLaw); //Função a ser executada na frequência determinada
+  
     Control::start(); //Inicia
-
-    //Teste da API pro DAC
     Control::DAC::Init();
+    Control::ADC Sinal(11); //Sinal Analógico
 
-    //Teste da API pro ADC
-    Control::ADC PTC1(15); //Canal 15 do ADC Ativado
-    Control::ADC PTC2(11); //Canal 11 do ADC Ativado
+    arm_rfft_instance_q15 Instancia_RealFFT;
 
+    //Inicialização da FFT
+    arm_rfft_init_q15(&Instancia_RealFFT,
+                      128,
+                      0,
+                      1);
 
-    //Teste da API do PWM
-    Control::PWM::setFrequency(10000); //Seta Frequencia
-    Control::PWM PWM0(1);
-
-    PWM0.setDuty(50);
-
-    //Teste de operação Matricial
-    float A[] = {1,2,3,4};
-    Matrix MA(2,2,A);
-    Matrix MB(2,2);
-    MB.Inverse(MA, MB); // Inverte MA e coloca resultado em MB
-    MB.Print(); //Printa na USB o resultado
-
-
-    uint32_t adcval1,adcval2;
-
-
+    uint32_t i;
+    uint16_t sinal_tempo, sinal_frequencia, mag_frequencia;
+    
     while(1) { //Loop infinito
+      sinal_tempo = Sinal.getConvertion(); //Sinal digital
+      
+      arm_rfft_q15(&Instancia_RealFFT,
+                  (q15_t *)sinal_tempo,
+                  (q15_t *)sinal_frequencia);
+      
+      for(i=0,i<256,i++) {
+        sinal_frequencia[i]<<=6;
+      }
 
-    	LED_RED_TOGGLE(); //Pisca LED Vermelho
-    	LED_BLUE_TOGGLE(); //Pisca LED Azul
-    	LED_GREEN_TOGGLE(); //Pisca LED Verde
+      arm_cmplx_mag_q15((q15_t *)sinal_frequencia,
+                        (q15_t *)mag_frequencia;
+                        128);
 
-    	Control::delay(1000000); //Delay
-    	adcval1 = PTC1.getConversion(); //lê ADC
-    	adcval2 = PTC2.getConversion(); // lê ADC
-    	CONTROLE_PRINT("PTC1 : %d PTC2 : %d \r\n",adcval1,adcval2); // Printa valores ADC
-
-}
-
-}
-
-
-int k = 0;
-bool Up = true;
-bool init = false;
-
-//Definição da Lei de controle
-void CtrlLaw(){
-
-//Static para ser construído apenas uma vez
-static Control::PWM PWM0(0); //Define PWM canal 0
-
-	LED_BLUE_TOGGLE(); //PISCA LED AZUL
-	DEBUG_PIN_TOGGLE(); //PISCA DEBUG PIN
-	if(Up){
-		k++;
-		//PWM1.setDuty(10);
-		if(k==101)
-			Up = false;
-
-	} else { //Down
-		k--;
-		if(k==-1)
-			Up = true;
-
-	}
-
-	PWM0.setDuty(k); // Seta Duty Cycle
-	if(k>0)
-	Control::DAC::SetValue(k*40); //seta o ADC
+  }
 
 }
-
 
 
 
